@@ -195,7 +195,7 @@ const App: React.FC = () => {
             </div>
             <div>
               <h1 className="text-lg font-bold tracking-tight text-slate-900 leading-none">UI/UX Architect</h1>
-              <p className="text-xs text-slate-500 font-medium mt-0.5">Browser Extension Mode</p>
+              <p className="text-xs text-slate-500 font-medium mt-0.5">AI Prompt Generator</p>
             </div>
           </div>
 
@@ -226,47 +226,45 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <main className="flex-1 w-full max-w-6xl mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 h-[calc(100vh-64px)]">
-        
-        {/* Left Column: Input Panel */}
-        <div className="lg:col-span-5 flex flex-col gap-4 h-full">
-           <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-1 flex-1 flex flex-col relative overflow-hidden">
-              {renderStatusOverlay()}
-              <div className="flex-1 p-3">
-                <InputSection 
-                  urlValue={url}
-                  onUrlChange={setUrl}
-                  currentImage={currentImage}
-                  onImageSelected={handleImageSelected}
-                  onClear={handleClear}
-                  scope={scope}
-                  onScopeChange={setScope}
-                />
-              </div>
-              
-              <div className="p-4 border-t border-slate-100 bg-slate-50 rounded-b-xl">
-                <button
-                  onClick={handleAnalyze}
-                  disabled={status !== AnalysisStatus.IDLE && status !== AnalysisStatus.COMPLETE && status !== AnalysisStatus.ERROR}
-                  className={`w-full py-3 px-6 rounded-xl font-bold text-white shadow-sm transition-all transform active:scale-95 flex items-center justify-center gap-2
-                    ${(status !== AnalysisStatus.IDLE && status !== AnalysisStatus.COMPLETE && status !== AnalysisStatus.ERROR)
-                      ? 'bg-slate-300 cursor-not-allowed text-slate-500' 
-                      : 'bg-brand-600 hover:bg-brand-700 shadow-brand-500/20'
-                    }`}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
-                  Analyze & Generate
-                </button>
-                <p className="text-center text-xs text-slate-400 mt-2">
-                  Uses Gemini 2.5 Flash • {activeTemplateName}
-                </p>
-              </div>
-           </div>
+      {/* Main Content Area - Vertical Layout */}
+      <main className="flex-1 w-full max-w-7xl mx-auto p-4 sm:p-6 flex flex-col gap-4 h-[calc(100vh-64px)]">
+
+        {/* Top: Input Panel (Compact) */}
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 relative overflow-hidden">
+          {renderStatusOverlay()}
+          <div className="p-4">
+            <InputSection
+              urlValue={url}
+              onUrlChange={setUrl}
+              currentImage={currentImage}
+              onImageSelected={handleImageSelected}
+              onClear={handleClear}
+              scope={scope}
+              onScopeChange={setScope}
+            />
+          </div>
+
+          <div className="px-4 pb-4 flex items-center justify-between gap-4">
+            <p className="text-xs text-slate-400">
+              Uses Gemini 2.5 Flash • {activeTemplateName}
+            </p>
+            <button
+              onClick={handleAnalyze}
+              disabled={status !== AnalysisStatus.IDLE && status !== AnalysisStatus.COMPLETE && status !== AnalysisStatus.ERROR}
+              className={`py-2.5 px-8 rounded-xl font-bold text-white shadow-sm transition-all transform active:scale-95 flex items-center justify-center gap-2
+                ${(status !== AnalysisStatus.IDLE && status !== AnalysisStatus.COMPLETE && status !== AnalysisStatus.ERROR)
+                  ? 'bg-slate-300 cursor-not-allowed text-slate-500'
+                  : 'bg-brand-600 hover:bg-brand-700 shadow-brand-500/20'
+                }`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+              Analyze & Generate
+            </button>
+          </div>
         </div>
 
-        {/* Right Column: Output */}
-        <div className="lg:col-span-7 h-full flex flex-col min-h-0">
+        {/* Bottom: Output (Takes remaining space) */}
+        <div className="flex-1 flex flex-col min-h-0">
            {resultText ? (
              <ResultViewer content={resultText} />
            ) : (

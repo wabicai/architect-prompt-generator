@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "UI/UX Architect - AI Prompt Generator",
+  "description": "Analyze webpage screenshots using Gemini Vision to generate detailed coding prompts for React & Tailwind CSS implementation.",
+  "version": "1.0.0",
+  "action": {
+    "default_title": "Click to open UI/UX Architect"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://generativelanguage.googleapis.com/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

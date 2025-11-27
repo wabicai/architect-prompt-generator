@@ -1,0 +1,5 @@
+{
+  "name": "UI/UX Architect - AI Prompt Generator",
+  "description": "Analyze webpage screenshots using Gemini Vision to generate detailed coding prompts for React & Tailwind CSS implementation.",
+  "requestFramePermissions": []
+}
